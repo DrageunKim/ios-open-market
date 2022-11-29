@@ -7,7 +7,7 @@
 import UIKit
 import Foundation
 
-class ListCollectionViewCell: UICollectionViewCell {
+class ListCollectionViewCell: UICollectionViewCell, CellInfoProtocol {
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
@@ -61,5 +61,15 @@ class ListCollectionViewCell: UICollectionViewCell {
         bottomLine.backgroundColor = color.cgColor
         
         self.layer.addSublayer(bottomLine)
+    }
+}
+
+protocol CellInfoProtocol {
+    static func getIdentifier() -> String
+}
+
+extension CellInfoProtocol {
+    static func getIdentifier() -> String {
+        return String(describing: type(of: self))
     }
 }
