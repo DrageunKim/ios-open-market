@@ -8,6 +8,7 @@ import UIKit
 
 class ProductDetailViewController: UIViewController {
     
+    var currentIndex: CGFloat = 0
     let productID: Int
     @IBOutlet weak var productImageCollectionView: UICollectionView!
     
@@ -23,6 +24,22 @@ class ProductDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addNavigationBar()
+        configureCollectionView()
+    }
+    
+    private func configureCollectionView() {
+        productImageCollectionView.delegate = self
+        productImageCollectionView.dataSource = self
+        registerCellNib()
+ 
+    }
+    
+    private func registerCellNib() {
+        let collectionViewCellNib = UINib(nibName: ImageCollectionViewCell.stringIdentifier(),
+                                          bundle: nil)
+        
+        productImageCollectionView.register(collectionViewCellNib,
+                                            forCellWithReuseIdentifier: ImageCollectionViewCell.stringIdentifier())
     }
     
     private func addNavigationBar() {
@@ -35,7 +52,7 @@ class ProductDetailViewController: UIViewController {
                                                          height: statusBarHeight))
         navigationBar.isTranslucent = false
         navigationBar.backgroundColor = .systemBackground
-
+        
         let productAction = UINavigationItem(title: "")
         productAction.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"),
                                                           style: .plain,
@@ -67,3 +84,27 @@ class ProductDetailViewController: UIViewController {
         self.dismiss(animated: true)
     }
 }
+
+extension ProductDetailViewController: UICollectionViewDelegate {
+    
+}
+
+extension ProductDetailViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = productImageCollectionView.dequeueReusableCell(
+            withReuseIdentifier: ImageCollectionViewCell.stringIdentifier(),
+            for: indexPath) as? ImageCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
+        cell.image.image = UIImage(named: "Dooboo")
+        
+        return cell
+    }
+}
+
+

@@ -70,7 +70,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Q3t-DZ-LAf">
-                    <rect key="frame" x="15" y="118.99999999999997" width="363" height="298.33333333333326"/>
+                    <rect key="frame" x="0.0" y="118.99999999999997" width="393" height="298.33333333333326"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="REN-4I-Af8">
                         <size key="itemSize" width="128" height="128"/>
@@ -84,7 +84,7 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="Q3t-DZ-LAf" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="60" id="0Lx-yt-iDy"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Q3t-DZ-LAf" secondAttribute="trailing" constant="15" id="0jX-Xj-bAL"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Q3t-DZ-LAf" secondAttribute="trailing" id="0jX-Xj-bAL"/>
                 <constraint firstItem="Jbg-Da-PB5" firstAttribute="top" secondItem="Kxw-Fl-wY0" secondAttribute="top" id="0tu-34-2Sk"/>
                 <constraint firstItem="c5Q-4J-wj4" firstAttribute="top" secondItem="Kxw-Fl-wY0" secondAttribute="bottom" constant="5" id="99L-WZ-gbm"/>
                 <constraint firstItem="f1A-JT-Xep" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="9rI-3p-ug7"/>
@@ -98,7 +98,7 @@
                 <constraint firstItem="Q3t-DZ-LAf" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.35" id="lrE-ZD-AOa"/>
                 <constraint firstItem="f1A-JT-Xep" firstAttribute="top" secondItem="c5Q-4J-wj4" secondAttribute="bottom" constant="10" id="r54-sq-Wgr"/>
                 <constraint firstItem="Jbg-Da-PB5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="xID-uD-KOm"/>
-                <constraint firstItem="Q3t-DZ-LAf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="yh8-Vn-oqT"/>
+                <constraint firstItem="Q3t-DZ-LAf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="yh8-Vn-oqT"/>
             </constraints>
             <point key="canvasLocation" x="136.64122137404578" y="20.422535211267608"/>
         </view>
