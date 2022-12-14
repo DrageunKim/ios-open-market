@@ -138,10 +138,13 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let editVC = self.storyboard?.instantiateViewController(identifier: "ProductEditViewController") as? ProductEditViewController else { return }
-        editVC.modalPresentationStyle = .fullScreen
-        editVC.productID = product?.pages[indexPath.item].id
-        self.present(editVC, animated: true, completion: nil)
+        let productDetailViewController = ProductDetailViewController(nibName: "ProductDetailViewController", bundle: nil)
+        productDetailViewController.modalPresentationStyle = .fullScreen
+        self.present(productDetailViewController, animated: true)
+        //        guard let editVC = self.storyboard?.instantiateViewController(identifier: "ProductEditViewController") as? ProductEditViewController else { return }
+        //        editVC.modalPresentationStyle = .fullScreen
+        //        editVC.productID = product?.pages[indexPath.item].id
+        //        self.present(editVC, animated: true, completion: nil)
     }
 }
 
