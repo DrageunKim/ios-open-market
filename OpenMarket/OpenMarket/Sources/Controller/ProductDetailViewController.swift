@@ -9,9 +9,15 @@ import UIKit
 class ProductDetailViewController: UIViewController {
     var currentIndex: CGFloat = 0
     let productID: Int
+    var product: Product?
+    var imageURLArray: [URL?] = []
     let flowLayout = UICollectionViewFlowLayout()
     
     @IBOutlet weak var productImageCollectionView: UICollectionView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var stockLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var descriptionTextView: UITextView!
     
     init(nibName: String, productID: Int) {
         self.productID = productID
@@ -27,6 +33,8 @@ class ProductDetailViewController: UIViewController {
         addNavigationBar()
         configureCollectionView()
         configureFlowLayout()
+        
+        fetchProduct()
     }
     
     private func configureFlowLayout() {
@@ -58,6 +66,23 @@ class ProductDetailViewController: UIViewController {
         
         productImageCollectionView.register(collectionViewCellNib,
                                             forCellWithReuseIdentifier: ImageCollectionViewCell.stringIdentifier())
+    }
+    
+    private func configureUIComponent() {
+        guard let product = product else { return }
+        
+        titleLabel.text = product.name
+        stockLabel.text = "남은수량 : \(product.stock)"
+        priceLabel.text = "\(product.currency.rawValue) \(product.price)"
+        descriptionTextView.text = product.description
+        
+        guard let detailImages = product.images else { return }
+        
+        detailImages.forEach {
+            if let imageURL: URL = URL(string: $0.url) {
+                imageURLArray.append(imageURL)
+            }
+        }
     }
     
     private func addNavigationBar() {
@@ -103,13 +128,43 @@ class ProductDetailViewController: UIViewController {
     }
 }
 
+extension ProductDetailViewController {
+    private func fetchProduct() {
+        let session: URLSessionProtocol = URLSession.shared
+        let networkManager: NetworkRequestable = NetworkManager(session: session)
+        
+        networkManager.request(from: URLManager.product(id: productID).url,
+                               httpMethod: HttpMethod.get,
+                               dataType: Product.self) { result in
+            switch result {
+            case .success(let data):
+                self.product = data
+                
+                DispatchQueue.main.async {
+                    self.configureUIComponent()
+                    self.productImageCollectionView.reloadData()
+                }
+                
+            case .failure(_):
+                let alert = UIAlertController(title: "실패", message: "상품 정보를 가져오지 못했습니다.", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+                    self.dismiss(animated: true)
+                }
+                
+                alert.addAction(okAction)
+                self.present(alert, animated: true)
+            }
+        }
+    }
+}
+
 extension ProductDetailViewController: UICollectionViewDelegate {
     
 }
 
 extension ProductDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return product?.images?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -119,7 +174,7 @@ extension ProductDetailViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.image.image = UIImage(named: "Dooboo")
+        cell.configureImage(url: imageURLArray[indexPath.item])
         
         return cell
     }

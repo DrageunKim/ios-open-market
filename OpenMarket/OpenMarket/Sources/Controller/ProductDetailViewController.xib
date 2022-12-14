@@ -11,7 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductDetailViewController" customModule="OpenMarket" customModuleProvider="target">
             <connections>
+                <outlet property="descriptionTextView" destination="wmP-75-A8n" id="g0N-iF-NHN"/>
+                <outlet property="priceLabel" destination="c5Q-4J-wj4" id="fyn-hT-Kzq"/>
                 <outlet property="productImageCollectionView" destination="Q3t-DZ-LAf" id="krw-8u-NSw"/>
+                <outlet property="stockLabel" destination="Kxw-Fl-wY0" id="GCs-yN-uzi"/>
+                <outlet property="titleLabel" destination="Jbg-Da-PB5" id="hva-op-byf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="o9h-bh-aup"/>
             </connections>
         </placeholder>
