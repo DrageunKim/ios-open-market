@@ -7,9 +7,10 @@
 import UIKit
 
 class ProductDetailViewController: UIViewController {
-    
     var currentIndex: CGFloat = 0
     let productID: Int
+    let flowLayout = UICollectionViewFlowLayout()
+    
     @IBOutlet weak var productImageCollectionView: UICollectionView!
     
     init(nibName: String, productID: Int) {
@@ -25,13 +26,30 @@ class ProductDetailViewController: UIViewController {
         super.viewDidLoad()
         addNavigationBar()
         configureCollectionView()
+        configureFlowLayout()
+    }
+    
+    private func configureFlowLayout() {
+        let cellHeight: CGFloat = UIScreen.main.bounds.height / 10 * 3.5
+        let cellWidth: CGFloat = cellHeight
+        
+        let insetX = (productImageCollectionView.bounds.width - cellWidth) / 2.0
+        let insetY = (productImageCollectionView.bounds.height - cellHeight) / 2.0
+        
+        flowLayout.minimumInteritemSpacing = 10
+        flowLayout.itemSize = CGSize(width: cellWidth, height: cellHeight)
+        flowLayout.scrollDirection = .horizontal
+        
+        productImageCollectionView.collectionViewLayout = flowLayout
+        productImageCollectionView.decelerationRate = .fast
+        productImageCollectionView.contentInset = UIEdgeInsets(top: insetY, left: insetX, bottom: insetY, right: insetX)
+        productImageCollectionView.isPagingEnabled = false
     }
     
     private func configureCollectionView() {
         productImageCollectionView.delegate = self
         productImageCollectionView.dataSource = self
         registerCellNib()
- 
     }
     
     private func registerCellNib() {
@@ -107,4 +125,22 @@ extension ProductDetailViewController: UICollectionViewDataSource {
     }
 }
 
-
+extension ProductDetailViewController: UIScrollViewDelegate {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        guard let layout = self.productImageCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        let cellWidthIncludingSpacing = layout.itemSize.width + layout.minimumLineSpacing
+        
+        var offset = targetContentOffset.pointee
+        let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
+        var roundedIndex = round(index)
+        
+        if scrollView.contentOffset.x > targetContentOffset.pointee.x {
+            roundedIndex = floor(index)
+        } else {
+            roundedIndex = ceil(index)
+        }
+        
+        offset = CGPoint(x: roundedIndex * cellWidthIncludingSpacing - scrollView.contentInset.left, y: -scrollView.contentInset.top)
+        targetContentOffset.pointee = offset
+    }
+}
