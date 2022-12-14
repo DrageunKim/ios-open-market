@@ -138,7 +138,7 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let productDetailViewController = ProductDetailViewController(nibName: "ProductDetailViewController", bundle: nil)
+        let productDetailViewController = ProductDetailViewController(nibName: "ProductDetailViewController", productID: 32)
         productDetailViewController.modalPresentationStyle = .fullScreen
         self.present(productDetailViewController, animated: true)
         //        guard let editVC = self.storyboard?.instantiateViewController(identifier: "ProductEditViewController") as? ProductEditViewController else { return }

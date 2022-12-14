@@ -1,5 +1,5 @@
 //
-//  OpenMarket - ProductEditViewController.swift
+//  OpenMarket - ProductDetailViewController.swift
 //  Created by Zhilly. 22/12/14
 //  Copyright © yagom. All rights reserved.
 //
@@ -8,7 +8,17 @@ import UIKit
 
 class ProductDetailViewController: UIViewController {
     
-    let productName: String = "Mac mini"
+    let productID: Int
+    @IBOutlet weak var productImageCollectionView: UICollectionView!
+    
+    init(nibName: String, productID: Int) {
+        self.productID = productID
+        super.init(nibName: nibName, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +36,7 @@ class ProductDetailViewController: UIViewController {
         navigationBar.isTranslucent = false
         navigationBar.backgroundColor = .systemBackground
 
-        let productAction = UINavigationItem(title: productName)
+        let productAction = UINavigationItem(title: "")
         productAction.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"),
                                                           style: .plain,
                                                           target: self,
