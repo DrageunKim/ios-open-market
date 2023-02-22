@@ -1,6 +1,6 @@
 //
-//  OpenMarket - ViewController.swift
-//  Created by yagom. 
+//  OpenMarket - MainViewController.swift
+//  Created by Dragon. 
 //  Copyright © yagom. All rights reserved.
 // 
 
