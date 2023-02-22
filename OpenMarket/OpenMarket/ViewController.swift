@@ -10,9 +10,14 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        configureView()
     }
+}
 
-
+extension ViewController {
+    private func configureView() {
+        view.backgroundColor = .systemBackground
+    }
 }
 
